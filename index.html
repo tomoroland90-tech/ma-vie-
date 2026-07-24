@@ -20,11 +20,13 @@
   .nav-2026 {
     width: 100%;
     display: flex;
-    justify-content: center;
-    padding: 20px 12px;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 12px 0 12px;
     position: sticky;
     top: 0;
     z-index: 100;
+    background: #0A221A;
   }
   .nav-island {
     display: flex;
@@ -70,17 +72,97 @@
     box-shadow: 0 8px 24px rgba(200,230,160,0.4);
   }
 
+  /* ===== PHOTO FLOTTANTE SOUS NAV - VISIBLE UNIQUEMENT SUR ACCUEIL ===== */
+  .image-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto 0 auto;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  /* caché par défaut */
+  .image-container.hidden { 
+    opacity: 0; 
+    transform: translateY(-20px);
+    pointer-events: none;
+    height: 0;
+    margin: 0 auto;
+  }
+
+  .glow {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(52, 168, 111, 0.35) 0%, rgba(52, 168, 111, 0) 70%);
+    filter: blur(10px);
+    animation: pulse-glow 4s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  .ring {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 2px dashed #3ea86f;
+    z-index: 1;
+    animation: rotate 18s linear infinite;
+    opacity: 0.8;
+  }
+  .ring-2 {
+    width: 300px;
+    height: 300px;
+    border: 1px solid rgba(62, 168, 111, 0.4);
+    animation: rotate-reverse 24s linear infinite;
+  }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes rotate-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+  .image-ronde {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 3;
+    border: 4px solid #143d27;
+    box-shadow: 0 0 0 6px rgba(52, 168, 111, 0.15),
+                0 15px 40px rgba(0, 0, 0, 0.5);
+    animation: float 5s ease-in-out infinite;
+    transition: transform 0.4s ease;
+  }
+  .image-ronde:hover { transform: scale(1.05); }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    background: #3ea86f;
+    z-index: 2;
+  }
+  .dot-1 { width: 14px; height: 14px; top: 10px; right: 20px; animation: float-dot 6s ease-in-out infinite; }
+  .dot-2 { width: 8px; height: 8px; bottom: 30px; left: 5px; background: transparent; border: 2px solid #3ea86f; animation: float-dot 7s ease-in-out infinite reverse; }
+  .dot-3 { width: 10px; height: 10px; bottom: 5px; right: 40px; opacity: 0.6; animation: float-dot 5s ease-in-out infinite; }
+  @keyframes float-dot { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-14px) scale(1.15); } }
+
   /* ===== SECTIONS ===== */
   .content { flex: 1; width: 100%; }
   .section {
-    display: none; /* caché par défaut */
-    padding: 100px 20px;
+    display: none;
+    padding: 60px 20px 100px 20px;
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
     animation: fadeIn 0.4s ease;
   }
-  .section.active { display: block; } /* affiché quand actif */
+  .section.active { display: block; }
   @keyframes fadeIn { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
 
   .section h1 { font-size: 2.8rem; margin-bottom: 14px; line-height: 1.15; }
@@ -157,44 +239,21 @@
   .tiktok { background: #010101; border: 1px solid #222; }
   .copy { margin-top: 24px; color: #5A7A6E; font-size: 12px; }
 
-  /* ===== RESPONSIVE : TABLETTES (<=900px) ===== */
+  /* RESPONSIVE */
   @media (max-width: 900px) {
     .section { padding: 80px 20px; }
     .section h1 { font-size: 2.3rem; }
-    .section h2 { font-size: 1.7rem; }
+    .image-container { width: 260px; height: 260px; }
+    .image-ronde { width: 180px; height: 180px; }
   }
-
-  /* ===== RESPONSIVE : MOBILE (<=600px) ===== */
   @media (max-width: 600px) {
-    .nav-2026 { padding: 14px 10px; }
-    .nav-island {
-      gap: 6px;
-      padding: 6px;
-      border-radius: 20px;
-    }
+    .nav-2026 { padding: 14px 10px 0 10px; }
+    .nav-island { gap: 6px; padding: 6px; border-radius: 20px; }
     .btn-pill { padding: 9px 16px; font-size: 13px; }
-
-    .section { padding: 60px 16px; }
+    .section { padding: 40px 16px 100px 16px; }
     .section h1 { font-size: 1.9rem; }
-    .section h2 { font-size: 1.5rem; }
-    .section p { font-size: 1rem; }
-
-    .about-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 28px; }
-    .about-card { padding: 18px; }
-
-    .contact-block { padding: 20px; border-radius: 16px; }
-    .contact-block p { font-size: 0.95rem; }
-
-    .social-icons { gap: 10px; }
-    .social-icons a { width: 46px; height: 46px; }
-    .social-icons svg { width: 19px; height: 19px; }
-  }
-
-  /* ===== RESPONSIVE : TRÈS PETITS ÉCRANS (<=380px) ===== */
-  @media (max-width: 380px) {
-    .btn-pill { padding: 8px 12px; font-size: 12px; }
-    .section h1 { font-size: 1.6rem; }
-    .social-icons a { width: 42px; height: 42px; }
+    .image-container { width: 220px; height: 220px; margin-top: 20px; }
+    .image-ronde { width: 150px; height: 150px; }
   }
 </style>
 </head>
@@ -207,6 +266,17 @@
       <button class="btn-pill btn-ghost" onclick="showSection('apropos', this)">À propos</button>
       <button class="btn-pill btn-solid" onclick="showSection('contact', this)">Me contacter</button>
     </nav>
+  </div>
+
+  <!-- PHOTO FLOTTANTE : VISIBLE UNIQUEMENT SUR ACCUEIL -->
+  <div class="image-container" id="photoAccueil">
+    <div class="glow"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring"></div>
+    <div class="dot dot-1"></div>
+    <div class="dot dot-2"></div>
+    <div class="dot dot-3"></div>
+    <img class="image-ronde" src="c:\Users\Tpp\Downloads\ChatGPT Image 17 juil. 2026, 12_19_26.png" alt="Roland Tomo">
   </div>
 </header>
 
@@ -226,7 +296,7 @@
     <div class="about-grid">
       <div class="about-card">
         <h3>🎯 Mes passions</h3>
-        <p>Développement web, montage vidéo,creation de contenu, et innovation digitale.</p>
+        <p>Développement web, montage vidéo, creation de contenu, et innovation digitale.</p>
       </div>
       <div class="about-card">
         <h3>📍 Localisation</h3>
@@ -276,6 +346,14 @@
     // 3. Mettre le bouton actif
     document.querySelectorAll('.btn-pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+
+    // 4. Afficher/Cacher la photo uniquement sur Accueil
+    const photo = document.getElementById('photoAccueil');
+    if(id === 'accueil') {
+      photo.classList.remove('hidden');
+    } else {
+      photo.classList.add('hidden');
+    }
   }
 </script>
 
