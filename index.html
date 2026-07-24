@@ -75,8 +75,8 @@
   /* ===== PHOTO FLOTTANTE SOUS NAV - VISIBLE UNIQUEMENT SUR ACCUEIL ===== */
   .image-container {
     position: relative;
-    width: 320px;
-    height: 320px;
+    width: clamp(200px, 55vw, 320px);
+    height: clamp(200px, 55vw, 320px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,8 +94,8 @@
 
   .glow {
     position: absolute;
-    width: 280px;
-    height: 280px;
+    width: clamp(175px, 48vw, 280px);
+    height: clamp(175px, 48vw, 280px);
     border-radius: 50%;
     background: radial-gradient(circle, rgba(52, 168, 111, 0.35) 0%, rgba(52, 168, 111, 0) 70%);
     filter: blur(10px);
@@ -109,8 +109,8 @@
 
   .ring {
     position: absolute;
-    width: 260px;
-    height: 260px;
+    width: clamp(165px, 45vw, 260px);
+    height: clamp(165px, 45vw, 260px);
     border-radius: 50%;
     border: 2px dashed #3ea86f;
     z-index: 1;
@@ -118,8 +118,8 @@
     opacity: 0.8;
   }
   .ring-2 {
-    width: 300px;
-    height: 300px;
+    width: clamp(190px, 52vw, 300px);
+    height: clamp(190px, 52vw, 300px);
     border: 1px solid rgba(62, 168, 111, 0.4);
     animation: rotate-reverse 24s linear infinite;
   }
@@ -127,8 +127,8 @@
   @keyframes rotate-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
   .image-ronde {
-    width: 220px;
-    height: 220px;
+    width: clamp(130px, 38vw, 220px);
+    height: clamp(130px, 38vw, 220px);
     border-radius: 50%;
     object-fit: cover;
     z-index: 3;
@@ -168,6 +168,21 @@
   .section h1 { font-size: 2.8rem; margin-bottom: 14px; line-height: 1.15; }
   .section h2 { font-size: 2rem; margin-bottom: 20px; color: #C8E6A0; }
   .section p { color: #8BA99E; font-size: 1.1rem; line-height: 1.7; margin-bottom: 16px; }
+
+  /* ===== TEXTE ANIME (MACHINE A ECRIRE) SUR ACCUEIL ===== */
+  #texteAccueil {
+    min-height: 1.7rem;
+  }
+  #texteAccueil.curseur-actif::after,
+  #texteVision.curseur-actif::after {
+    content: "|";
+    animation: clignote 0.8s infinite;
+    color: #C8E6A0;
+    margin-left: 2px;
+  }
+  @keyframes clignote {
+    50% { opacity: 0; }
+  }
   
   .about-grid {
     display: grid;
@@ -243,8 +258,6 @@
   @media (max-width: 900px) {
     .section { padding: 80px 20px; }
     .section h1 { font-size: 2.3rem; }
-    .image-container { width: 260px; height: 260px; }
-    .image-ronde { width: 180px; height: 180px; }
   }
   @media (max-width: 600px) {
     .nav-2026 { padding: 14px 10px 0 10px; }
@@ -252,8 +265,7 @@
     .btn-pill { padding: 9px 16px; font-size: 13px; }
     .section { padding: 40px 16px 100px 16px; }
     .section h1 { font-size: 1.9rem; }
-    .image-container { width: 220px; height: 220px; margin-top: 20px; }
-    .image-ronde { width: 150px; height: 150px; }
+    .image-container { margin-top: 20px; }
   }
 </style>
 </head>
@@ -284,7 +296,8 @@
   <!-- ACCUEIL -->
   <section id="accueil" class="section active">
     <h1>Roland Tomo</h1>
-    <p>Créateur • Développeur • Visionnaire basé à Douala</p>
+    <p id="texteAccueil"></p>
+    <p id="texteVision" style="text-align:left; white-space:pre-line; line-height:1.9; margin-top:30px;"></p>
   </section>
 
   <!-- A PROPOS -->
@@ -337,6 +350,47 @@
 </div>
 
 <script>
+  // ===== MACHINE A ECRIRE POUR LA SECTION ACCUEIL =====
+  const texteAccueilComplet = "Créateur • Développeur • Visionnaire basé à Douala";
+
+  function ecrireTexteAccueil() {
+    const element = document.getElementById("texteAccueil");
+    element.textContent = "";
+    element.classList.add("curseur-actif");
+    let i = 0;
+    function ajouterLettre() {
+      if (i < texteAccueilComplet.length) {
+        element.textContent += texteAccueilComplet.charAt(i);
+        i++;
+        setTimeout(ajouterLettre, 45);
+      } else {
+        element.classList.remove("curseur-actif");
+        ecrireTexteVision(); // enchaîne avec le bloc Ma Vision juste en dessous
+      }
+    }
+    ajouterLettre();
+  }
+
+  // ===== MACHINE A ECRIRE POUR LA SECTION MA VISION =====
+  const texteVisionComplet = "Je crois fermement que la technologie doit être au service de l'humain.\n\nMa vision est de bâtir des solutions digitales simples, élégantes et puissantes.\n\nDes outils qui aident les entreprises à grandir et les personnes à gagner du temps.\n\nChaque ligne de code que j'écris a pour but de créer de la valeur.\n\nDe transformer une idée en réalité et un problème en opportunité.\n\nEnsemble, construisons le digital de demain.";
+
+  function ecrireTexteVision() {
+    const element = document.getElementById("texteVision");
+    element.textContent = "";
+    element.classList.add("curseur-actif");
+    let i = 0;
+    function ajouterLettre() {
+      if (i < texteVisionComplet.length) {
+        element.textContent += texteVisionComplet.charAt(i);
+        i++;
+        setTimeout(ajouterLettre, 20);
+      } else {
+        element.classList.remove("curseur-actif");
+      }
+    }
+    ajouterLettre();
+  }
+
   function showSection(id, btn) {
     // 1. Cacher toutes les sections
     document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
@@ -351,10 +405,14 @@
     const photo = document.getElementById('photoAccueil');
     if(id === 'accueil') {
       photo.classList.remove('hidden');
+      ecrireTexteAccueil(); // relance l'animation à chaque retour sur Accueil (enchaîne avec Ma Vision)
     } else {
       photo.classList.add('hidden');
     }
   }
+
+  // Lancer l'animation au chargement initial de la page
+  window.onload = ecrireTexteAccueil;
 </script>
 
 </body>
