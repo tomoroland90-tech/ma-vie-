@@ -297,16 +297,100 @@
     background:#2c8b45;
     transform:translateY(-5px);
 }
+/* ===========================
+   LOADER
+=========================== */
+
+#loader{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#0A221A;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:opacity .8s ease;
+}
+
+.loader-content{
+    text-align:center;
+}
+
+.loader-logo{
+    width:110px;
+    height:110px;
+    margin:auto;
+    border-radius:50%;
+    background:linear-gradient(135deg,#34A853,#C8E6A0);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-size:42px;
+    font-weight:bold;
+    margin-bottom:20px;
+    animation:pulse 1.8s infinite;
+}
+
+.loader-content h2{
+    color:white;
+    letter-spacing:3px;
+    margin-bottom:10px;
+}
+
+.loader-content p{
+    color:#C8E6A0;
+    margin-bottom:25px;
+}
+
+.loader-bar{
+    width:260px;
+    height:8px;
+    background:#163126;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.loader-progress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#34A853,#C8E6A0);
+    animation:loading 2.5s forwards;
+}
+
+@keyframes loading{
+    from{width:0%;}
+    to{width:100%;}
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.08);}
+    100%{transform:scale(1);}
+}
 </style>
 </head>
 <body>
+<div id="loader">
+    <div class="loader-content">
+        <div class="loader-logo">RT</div>
+        <h2>ROLAND TOMO</h2>
+        <p>Chargement...</p>
 
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+</div>
 <header class="nav-2026">
   <div class="nav-island">
     <nav class="nav-buttons">
-      <button class="btn-pill btn-ghost active" onclick="showSection('accueil', this)">Accueil</button>
-      <button class="btn-pill btn-ghost" onclick="showSection('apropos', this)">À propos</button>
-      <button class="btn-pill btn-solid" onclick="showSection('contact', this)">Me contacter</button>
+      <button class="btn-pill btn-ghost active" onclick="showSection('accueil', this)">Accueil 🏠</button>
+      <button class="btn-pill btn-ghost" onclick="showSection('apropos', this)">À propos 👤</button>
+      <button class="btn-pill btn-solid" onclick="showSection('contact', this)">Me contacter 📞</button>
     </nav>
   </div>
 
@@ -471,6 +555,21 @@ function retourHaut() {
         behavior: "smooth"
     });
 }
+window.addEventListener("load", function(){
+
+    setTimeout(function(){
+
+        const loader = document.getElementById("loader");
+
+        loader.style.opacity="0";
+
+        setTimeout(function(){
+            loader.style.display="none";
+        },800);
+
+    },2500);
+
+});
 </script>
 <button id="btnTop" onclick="retourHaut()">↑</button>
 </body>
