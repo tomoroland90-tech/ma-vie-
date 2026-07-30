@@ -254,18 +254,84 @@
   .tiktok { background: #010101; border: 1px solid #222; }
   .x-twitter { background: #000000; }
   /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .section { padding: 80px 20px; }
-    .section h1 { font-size: 2.3rem; }
-  }
-  @media (max-width: 600px) {
-    .nav-2026 { padding: 14px 10px 0 10px; }
-    .nav-island { gap: 6px; padding: 6px; border-radius: 20px; }
-    .btn-pill { padding: 9px 16px; font-size: 13px; }
-    .section { padding: 40px 16px 100px 16px; }
-    .section h1 { font-size: 1.9rem; }
-    .image-container { margin-top: 20px; }
-  }
+ /* ===== Responsive universel ===== */
+
+html{
+    font-size:16px;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+.section{
+    width:min(1100px,95%);
+    margin:auto;
+    padding:60px 20px;
+}
+
+.nav-island{
+    width:min(100%,900px);
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.nav-island::-webkit-scrollbar{
+    display:none;
+}
+
+.nav-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:nowrap;
+}
+
+.btn-pill{
+    flex-shrink:0;
+}
+
+.image-container{
+    width:min(320px,80vw);
+    height:min(320px,80vw);
+}
+
+.image-ronde{
+    width:70%;
+    height:70%;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.social-icons{
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.social-icons a{
+    width:52px;
+    height:52px;
+}
+
+@media (max-width:768px){
+
+    html{
+        font-size:15px;
+    }
+
+    .section h1{
+        font-size:2.3rem;
+    }
+
+    .section h2{
+        font-size:1.8rem;
+    }
+
+}
   .copy{
     width:100%;
     text-align:center;
