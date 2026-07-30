@@ -253,8 +253,6 @@
   .snapchat svg { fill: #000 !important; }
   .tiktok { background: #010101; border: 1px solid #222; }
   .x-twitter { background: #000000; }
-  .copy { margin-top: 24px; color: #5A7A6E; font-size: 12px; }
-
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .section { padding: 80px 20px; }
@@ -268,6 +266,37 @@
     .section h1 { font-size: 1.9rem; }
     .image-container { margin-top: 20px; }
   }
+  .copy{
+    width:100%;
+    text-align:center;
+    padding:20px;
+    color:#5A7A6E;
+    font-size:13px;
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:40px;
+}
+#btnTop{
+    display:none;
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#34A853;
+    color:#fff;
+    font-size:24px;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+    transition:.3s;
+    z-index:999;
+}
+
+#btnTop:hover{
+    background:#2c8b45;
+    transform:translateY(-5px);
+}
 </style>
 </head>
 <body>
@@ -326,7 +355,8 @@
         Numériser les platforms des établissements scolaires et des paroisses,faciliter l'utilisation de la technologie pour améliorer l'efficacité et l'accessibilité des services.
       </div>
       <div class="about-card">
-        <h3>Mes créativité</h3>
+        <h3>❤️ Centres d'intérêt</h3>
+        <p>Développement web,Intelligence artificielle,Cybersécurité,Design UI/UX,Entrepreneuriat,Musique</p>
       </div>    
     </div>
   </section>
@@ -354,10 +384,11 @@
  </svg>
 </a>
     </div>
-    <div class="copy">&copy; 2026 Roland Tomo. Tous droits réservés.</div>
   </section>
 </div>
-
+<footer class="copy">
+  &copy; 2026 Roland Tomo. Tous droits réservés.
+</footer>
 <script>
   // ===== MACHINE A ECRIRE POUR LA SECTION ACCUEIL =====
   const texteAccueilComplet = "Développeur web • Créateur • Visionnaire basé à Douala";
@@ -381,7 +412,7 @@
   }
 
   // ===== MACHINE A ECRIRE POUR LA SECTION MA VISION =====
-  const texteVisionComplet = "Hello moi c'est ROLAND TOMO, je suis un jeune écolier  passionné du developpement web.\n\n Ma  vision est de bâtir des solutions digitales simples, élégantes et puissantes.\n\n  De crée des outils qui aident les entreprises à grandir et les personnes à gagner du temps.\n\n Chaque ligne  de mon code que j'écris a pour but de créer de la valeur.\n\nDe transformer une idée en réalité et un problème en opportunité.\n\nEnsemble, Ensemble construisons le digital de demain.\n\n";
+  const texteVisionComplet = "Hello moi c'est ROLAND TOMO, je suis un jeune écolier  passionné du developpement web.\n\n Ma  vision est de bâtir des solutions digitales simples, élégantes et puissantes.\n\n  De crée des outils qui aident les entreprises à grandir et les personnes à gagner du temps.\n\n Chaque ligne  de mon code que j'écris a pour but de créer de la valeur.\n\nDe transformer une idée en réalité et un problème en opportunité.\n\nEnsemble, construisons le digital de demain.\n\n";
 
   function ecrireTexteVision() {
     const element = document.getElementById("texteVision");
@@ -422,7 +453,25 @@
 
   // Lancer l'animation au chargement initial de la page
   window.onload = ecrireTexteAccueil;
-</script>
+// Afficher le bouton lorsqu'on descend la page
+window.onscroll = function () {
+    let bouton = document.getElementById("btnTop");
 
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        bouton.style.display = "block";
+    } else {
+        bouton.style.display = "none";
+    }
+};
+
+// Retour en haut avec une animation fluide
+function retourHaut() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+</script>
+<button id="btnTop" onclick="retourHaut()">↑</button>
 </body>
 </html>
